@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace зоопарк
-{
+{/// <summary>
+/// какие-то изменения
+/// </summary> //////фывфывфывф
     class Zoo
     {
         public string Name { get; set; }
