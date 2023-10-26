@@ -13,7 +13,6 @@ namespace зоопарк
         {
             this.Name = Name;
         }
-
         public List<HouseOfAnimal> Cage = new List<HouseOfAnimal>(); //список клеток
         public void AddCage(HouseOfAnimal aaa) //добавляет клетку в зоопарк
         {
@@ -38,7 +37,7 @@ namespace зоопарк
         public int Number { get; set; }
         public int Size { get; set; }
         public int MaxSumOfAnimals { get; set; }
-        public int SumOfAnimalsNow {  get; set; }
+        public int SumOfAnimalsNow { get; set; }
         
         public HouseOfAnimal(string Name, int Number, int Size, int MaxSumOfAnimals)
         {
@@ -46,13 +45,10 @@ namespace зоопарк
             this.Number = Number;
             this.Size = Size;
             this.MaxSumOfAnimals = MaxSumOfAnimals;
-            
-
         }
         public List<Animal> animal = new List<Animal>();
         public void addAnimal(Animal bbb)
         {
-
             if (animal.Count==0)
             {
                 animal.Add(bbb);
@@ -63,11 +59,11 @@ namespace зоопарк
             }
             else 
             {
-                Console.WriteLine("Животное нельзя поместить в этот вольер");
+                Console.WriteLine($"Животное нельзя поместить в этот вольер, тут живёт {animal[0].NameOfAnimal}");
             }
             SumOfAnimalsNow = animal.Count;
         }
-        public void DelAnimal(int ccc) //удалить животное
+        public void DelAnimal(int ccc) //убрать животное из клетки
         {
             if ((ccc - 1) < animal.Count)
             {
@@ -189,20 +185,26 @@ namespace зоопарк
     {
         static void Main(string[] args)
         {
-            Bird animal = new Bird("Какаду", false, 20);
-            Bird animal2 = new Bird("Какаду", false, 15);
-            animal.GenerateADescription();
-            Zoo zoo = new Zoo("esdsad");
-            HouseOfAnimal cage1 = new HouseOfAnimal("птицы", 21, 55, 15);
-            zoo.AddCage(cage1);
+            Bird bird1 = new Bird("Какаду", false, 20);
+            Bird bird2 = new Bird("Какаду", false, 15);
+            Fish fish1 = new Fish("Клоун", false, false);
+            Fish fish2 = new Fish("Клоун", false, false);
+            Fish fish3 = new Fish("Акула", true, false);
+            Beast beast1 = new Beast("Олень", false, "Лес");
+            Beast beast2 = new Beast("Лев", true, "Саванна");
+            bird1.GenerateADescription(); //информация о животном
+            Zoo zoo = new Zoo("Московский");
+            HouseOfAnimal cage1 = new HouseOfAnimal("птицы", 21, 55, 15); //создаём клетки
             HouseOfAnimal cage2 = new HouseOfAnimal("птицы2", 21, 55, 15);
+            zoo.AddCage(cage1); //добавляем клетки в зоопарк
             zoo.AddCage(cage2);
-            cage1.addAnimal(animal);
-            cage1.addAnimal(animal2);
-            //cage1.TransferAnimal(cage1, cage2, 1);
+            cage1.addAnimal(bird1); //добавляем в животных в клетки
+            cage1.addAnimal(bird2);
+            cage1.TransferAnimal(cage1, cage2, 1);
             //Console.WriteLine(cage2.animal[0].NameOfAnimal);
-            Console.WriteLine(cage1.SumOfAnimalsNow);
-            Console.WriteLine(cage1.WhichAnimal(1));
+            //Console.WriteLine(cage1.SumOfAnimalsNow);
+            //Console.WriteLine(cage1.WhichAnimal(1));
+            
 
             Console.ReadLine();
         }
