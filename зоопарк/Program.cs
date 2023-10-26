@@ -78,7 +78,8 @@ namespace зоопарк
                 Console.WriteLine("Такого животного нет");
             }
         }
-        public void TransferAnimal( HouseOfAnimal outCletka, HouseOfAnimal innerCletka, int ccc) //перенос животного
+        public void TransferAnimal( HouseOfAnimal outCletka, 
+            HouseOfAnimal innerCletka, int ccc) //перенос животного в другую клетку
         {
             innerCletka.addAnimal(outCletka.animal[ccc - 1]);
             outCletka.DelAnimal(ccc);
@@ -106,7 +107,6 @@ namespace зоопарк
         }
         abstract public void GenerateADescription();
     }
-
     class Fish : Animal
     {
         public bool Deepwater { get; set; }
