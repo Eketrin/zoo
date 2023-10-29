@@ -38,7 +38,6 @@ namespace зоопарк
         public int Size { get; set; }
         public int MaxSumOfAnimals { get; set; }
         public int SumOfAnimalsNow { get; set; }
-        
         public HouseOfAnimal(string Name, int Number, int Size, int MaxSumOfAnimals)
         {
             this.Name = Name;
@@ -79,11 +78,13 @@ namespace зоопарк
         {
             if (innerCletka.animal.Count == 0)
             {
+                Console.WriteLine($"{outCletka.animal[ccc - 1].NameOfAnimal} переведен/а в новый вольер");
                 innerCletka.addAnimal(outCletka.animal[ccc - 1]);
                 outCletka.DelAnimal(ccc);
             }
             else if (outCletka.animal[ccc - 1].NameOfAnimal == innerCletka.animal[0].NameOfAnimal)
             {
+                Console.WriteLine($"{outCletka.animal[ccc - 1].NameOfAnimal} переведен/а в вольер к сородичам");
                 innerCletka.addAnimal(outCletka.animal[ccc - 1]);
                 outCletka.DelAnimal(ccc);
             }
@@ -172,7 +173,6 @@ namespace зоопарк
         }
 
     }
-
     class Beast : Animal
     {
         public string Area { get; set; }
@@ -209,8 +209,17 @@ namespace зоопарк
             Fish fish3 = new Fish("Акула", true, false);
             Beast beast1 = new Beast("Олень", false, "Лес");
             Beast beast2 = new Beast("Лев", true, "Саванна");
-            bird1.GenerateADescription(); //информация о животном
+
+            // создание зоопарка
             Zoo zoo = new Zoo("Московский");
+
+            //информация о животных
+            bird1.GenerateADescription();
+            Console.WriteLine();
+            fish2.GenerateADescription();
+            Console.WriteLine();
+            beast2.GenerateADescription();
+            Console.WriteLine();
 
             //создаём клетки
             HouseOfAnimal cage1 = new HouseOfAnimal("птицы", 21, 55, 15); 
@@ -235,16 +244,23 @@ namespace зоопарк
             cage4.addAnimal(beast1);
             cage5.addAnimal(beast2);
 
-            //пытаемся подселить какаду к рыбе
-            cage1.TransferAnimal(cage1, cage2, 1); 
+            //пытаемся подселить какаду к рыбе и льва к оленю
+            cage1.TransferAnimal(cage1, cage2, 1);
+            Console.WriteLine();
+            cage5.TransferAnimal(cage5, cage4, 1);
+            Console.WriteLine();
+
+            //создаём клетку с акулой и переносим акулу к её сородичам в другую клетку
+            Fish fish4 = new Fish("Акула", true, false);
+            HouseOfAnimal cage6 = new HouseOfAnimal("хищные рыбы", 21, 55, 15);
+            cage6.addAnimal(fish4);
+            cage6.TransferAnimal(cage6 , cage3, 1);
+            Console.WriteLine();
 
 
-
-            //Console.WriteLine(cage2.animal[0].NameOfAnimal);
-            //Console.WriteLine(cage1.SumOfAnimalsNow);
-            //Console.WriteLine(cage1.WhichAnimal(1));
-            
-
+            //создаём новый вольер и переводм туда оленя
+            HouseOfAnimal cageolen = new HouseOfAnimal("олени", 21, 55, 15);
+            cage4.TransferAnimal(cage4, cageolen, 1);
             Console.ReadLine();
         }
     }
