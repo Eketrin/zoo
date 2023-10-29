@@ -77,8 +77,24 @@ namespace зоопарк
         public void TransferAnimal( HouseOfAnimal outCletka, 
             HouseOfAnimal innerCletka, int ccc) //перенос животного в другую клетку
         {
+            if (innerCletka.animal.Count == 0)
+            {
+                innerCletka.addAnimal(outCletka.animal[ccc - 1]);
+                outCletka.DelAnimal(ccc);
+            }
+            else if (outCletka.animal[ccc - 1].NameOfAnimal == innerCletka.animal[0].NameOfAnimal)
+            {
+                innerCletka.addAnimal(outCletka.animal[ccc - 1]);
+                outCletka.DelAnimal(ccc);
+            }
+            else
+            {
+                Console.WriteLine($"Животное нельзя поместить в этот вольер");
+                Console.WriteLine($"{outCletka.animal[ccc - 1].NameOfAnimal} и {innerCletka.animal[0].NameOfAnimal} не могут жить вместе!");
+            }
+            /*
             innerCletka.addAnimal(outCletka.animal[ccc - 1]);
-            outCletka.DelAnimal(ccc);
+            outCletka.DelAnimal(ccc); */
         }
         public string WhichAnimal(int chis) //вывод кто в клетке
         {
@@ -185,22 +201,45 @@ namespace зоопарк
     {
         static void Main(string[] args)
         {
+            //создаём животных
             Bird bird1 = new Bird("Какаду", false, 20);
             Bird bird2 = new Bird("Какаду", false, 15);
-            Fish fish1 = new Fish("Клоун", false, false);
-            Fish fish2 = new Fish("Клоун", false, false);
+            Fish fish1 = new Fish("Рыба-клоун", false, false);
+            Fish fish2 = new Fish("Рыба-клоун", false, false);
             Fish fish3 = new Fish("Акула", true, false);
             Beast beast1 = new Beast("Олень", false, "Лес");
             Beast beast2 = new Beast("Лев", true, "Саванна");
             bird1.GenerateADescription(); //информация о животном
             Zoo zoo = new Zoo("Московский");
-            HouseOfAnimal cage1 = new HouseOfAnimal("птицы", 21, 55, 15); //создаём клетки
-            HouseOfAnimal cage2 = new HouseOfAnimal("птицы2", 21, 55, 15);
-            zoo.AddCage(cage1); //добавляем клетки в зоопарк
+
+            //создаём клетки
+            HouseOfAnimal cage1 = new HouseOfAnimal("птицы", 21, 55, 15); 
+            HouseOfAnimal cage2 = new HouseOfAnimal("рыбы", 21, 55, 15);
+            HouseOfAnimal cage3 = new HouseOfAnimal("хищные рыбы", 21, 55, 15);
+            HouseOfAnimal cage4 = new HouseOfAnimal("олени", 21, 55, 15);
+            HouseOfAnimal cage5 = new HouseOfAnimal("львы", 21, 55, 15);
+
+            //добавляем клетки в зоопарк
+            zoo.AddCage(cage1); 
             zoo.AddCage(cage2);
-            cage1.addAnimal(bird1); //добавляем в животных в клетки
+            zoo.AddCage(cage3);
+            zoo.AddCage(cage4);
+            zoo.AddCage(cage5);
+
+            //добавляем в животных в клетки
+            cage1.addAnimal(bird1);
             cage1.addAnimal(bird2);
-            cage1.TransferAnimal(cage1, cage2, 1);
+            cage2.addAnimal(fish1);
+            cage2.addAnimal(fish2);
+            cage3.addAnimal(fish3);
+            cage4.addAnimal(beast1);
+            cage5.addAnimal(beast2);
+
+            //пытаемся подселить какаду к рыбе
+            cage1.TransferAnimal(cage1, cage2, 1); 
+
+
+
             //Console.WriteLine(cage2.animal[0].NameOfAnimal);
             //Console.WriteLine(cage1.SumOfAnimalsNow);
             //Console.WriteLine(cage1.WhichAnimal(1));
